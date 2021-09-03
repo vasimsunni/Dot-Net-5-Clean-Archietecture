@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31605.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetFive.Core", "DotNetFive.Core\DotNetFive.Core.csproj", "{CEBA6C45-CAC8-4A4B-961B-56C0BE255214}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEBA6C45-CAC8-4A4B-961B-56C0BE255214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEBA6C45-CAC8-4A4B-961B-56C0BE255214}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEBA6C45-CAC8-4A4B-961B-56C0BE255214}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEBA6C45-CAC8-4A4B-961B-56C0BE255214}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {64EA644F-0327-4A33-B016-35B32C7E592D}
+	EndGlobalSection
+EndGlobal
