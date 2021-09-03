@@ -1,5 +1,6 @@
 ﻿using DotNetFive.Core.Pagination.DTO;
 using DotNetFive.Core.Repository.Interface;
+using DotNetFive.Core.Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,15 @@ namespace DotNetFive.Core.Repository.Class
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
+        private readonly IUnitOfWork unitOfWork;
+        //private readonly ICachingService cachingService;
+        //private readonly IBinRepository binRepository;
         public Task<PagedResult<T>> Filter(object Id){
-
+            
         }
         public Task<IEnumerable<T>> Get(object Id)
         {
+               
 
         }
         public int Add(T entity){
