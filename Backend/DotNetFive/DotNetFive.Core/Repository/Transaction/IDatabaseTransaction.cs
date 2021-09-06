@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace TSA.Infrastructure.Interface
+namespace DotNetFive.Core.Repository.Transaction
 {
     public interface IDatabaseTransaction : IDisposable
     {

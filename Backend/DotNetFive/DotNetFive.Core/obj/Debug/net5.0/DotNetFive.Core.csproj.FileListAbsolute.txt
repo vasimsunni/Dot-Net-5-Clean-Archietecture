@@ -1,0 +1,12 @@
+D:\Vasim\Dot-Net-5-Clean-Archietecture\Backend\DotNetFive\DotNetFive.Core\bin\Debug\net5.0\DotNetFive.Core.deps.json
+D:\Vasim\Dot-Net-5-Clean-Archietecture\Backend\DotNetFive\DotNetFive.Core\bin\Debug\net5.0\DotNetFive.Core.dll
+D:\Vasim\Dot-Net-5-Clean-Archietecture\Backend\DotNetFive\DotNetFive.Core\bin\Debug\net5.0\ref\DotNetFive.Core.dll
+D:\Vasim\Dot-Net-5-Clean-Archietecture\Backend\DotNetFive\DotNetFive.Core\bin\Debug\net5.0\DotNetFive.Core.pdb
+D:\Vasim\Dot-Net-5-Clean-Archietecture\Backend\DotNetFive\DotNetFive.Core\obj\Debug\net5.0\DotNetFive.Core.csproj.AssemblyReference.cache
+D:\Vasim\Dot-Net-5-Clean-Archietecture\Backend\DotNetFive\DotNetFive.Core\obj\Debug\net5.0\DotNetFive.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\Vasim\Dot-Net-5-Clean-Archietecture\Backend\DotNetFive\DotNetFive.Core\obj\Debug\net5.0\DotNetFive.Core.AssemblyInfoInputs.cache
+D:\Vasim\Dot-Net-5-Clean-Archietecture\Backend\DotNetFive\DotNetFive.Core\obj\Debug\net5.0\DotNetFive.Core.AssemblyInfo.cs
+D:\Vasim\Dot-Net-5-Clean-Archietecture\Backend\DotNetFive\DotNetFive.Core\obj\Debug\net5.0\DotNetFive.Core.csproj.CoreCompileInputs.cache
+D:\Vasim\Dot-Net-5-Clean-Archietecture\Backend\DotNetFive\DotNetFive.Core\obj\Debug\net5.0\DotNetFive.Core.dll
+D:\Vasim\Dot-Net-5-Clean-Archietecture\Backend\DotNetFive\DotNetFive.Core\obj\Debug\net5.0\ref\DotNetFive.Core.dll
+D:\Vasim\Dot-Net-5-Clean-Archietecture\Backend\DotNetFive\DotNetFive.Core\obj\Debug\net5.0\DotNetFive.Core.pdb
