@@ -1,7 +1,9 @@
 ﻿using DotNetFive.Core.Caching;
+using DotNetFive.Core.DataModel;
 using DotNetFive.Core.Pagination;
 using DotNetFive.Core.Pagination.DTO;
 using DotNetFive.Core.Repository.Interface;
+using DotNetFive.Core.Repository.Transaction;
 using DotNetFive.Core.Repository.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,20 +14,20 @@ using System.Threading.Tasks;
 
 namespace DotNetFive.Core.Repository.Class
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : class
+    public abstract class Repository<T> : IRepository<T> where T : class
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly ICachingService cachingService;
 
-        public BaseRepository(IUnitOfWork unitOfWork, ICachingService cachingService)
+        public Repository(IUnitOfWork unitOfWork, ICachingService cachingService)
         {
             this.unitOfWork = unitOfWork;
             this.cachingService = cachingService;
         }
 
-        public async Task<PagedResult<T>> Filter(T entity, string searchText, int pageNo, int pageSize)
+        public async virtual Task<PagedResult<T>> Filter(string searchText, int pageNo, int pageSize)
         {
-            var allRecords = await GetCachedList(entity);
+            var allRecords = await GetCachedList();
 
             if (allRecords != null && allRecords.Any() && !string.IsNullOrWhiteSpace(searchText))
             {
@@ -49,16 +51,19 @@ namespace DotNetFive.Core.Repository.Class
 
             return allRecords.ToList().GetPaged(pageNo, pageSize);
         }
-
-        public async Task<IEnumerable<T>> Get(object id, T entity)
+        public async virtual Task<IEnumerable<T>> All()
+        {
+            return await GetCachedList();
+        }
+        public async virtual Task<IEnumerable<T>> Get(object id)
         {
             if (id != null)
-                return await GetByProperty(entity, "Id", id.ToString());
+                return await GetByProperty("Id", id.ToString());
 
-            return await GetCachedList(entity);
+            return await GetCachedList();
         }
 
-        public string Add(T entity, IDbTransaction dbTransaction)
+        public virtual string Add(T entity, IDatabaseTransaction dbTransaction)
         {
             using (dbTransaction)
             {
@@ -76,7 +81,7 @@ namespace DotNetFive.Core.Repository.Class
                         {
                             savedId = GetProperty(entity, "Id").ToString();
 
-                            RemoveCache(entity);
+                            RemoveCache();
                         }
                     }
                 }
@@ -89,7 +94,7 @@ namespace DotNetFive.Core.Repository.Class
             }
         }
 
-        public bool Add(IEnumerable<T> entities, IDbTransaction dbTransaction)
+        public virtual bool Add(IEnumerable<T> entities, IDatabaseTransaction dbTransaction)
         {
             using (dbTransaction)
             {
@@ -101,7 +106,7 @@ namespace DotNetFive.Core.Repository.Class
 
                         unitOfWork.Context.SaveChanges();
 
-                        RemoveCache(entities.FirstOrDefault());
+                        RemoveCache();
 
                         return true;
                     }
@@ -115,7 +120,7 @@ namespace DotNetFive.Core.Repository.Class
             }
         }
 
-        public string Update(T entity, IDbTransaction dbTransaction)
+        public virtual string Update(T entity, IDatabaseTransaction dbTransaction)
         {
             using (dbTransaction)
             {
@@ -133,7 +138,7 @@ namespace DotNetFive.Core.Repository.Class
                         {
                             savedId = GetProperty(entity, "Id").ToString();
 
-                            RemoveCache(entity);
+                            RemoveCache();
                         }
                     }
                 }
@@ -146,7 +151,7 @@ namespace DotNetFive.Core.Repository.Class
             }
         }
 
-        public bool Delete(T entity, IDbTransaction dbTransaction)
+        public virtual bool Delete(T entity, IDatabaseTransaction dbTransaction)
         {
             using (dbTransaction)
             {
@@ -160,7 +165,7 @@ namespace DotNetFive.Core.Repository.Class
 
                         unitOfWork.Context.SaveChanges();
 
-                        RemoveCache(updatedEntity);
+                        RemoveCache();
 
                         return true;
                     }
@@ -173,7 +178,7 @@ namespace DotNetFive.Core.Repository.Class
             }
         }
 
-        public bool Delete(IEnumerable<T> entities, IDbTransaction dbTransaction)
+        public virtual bool Delete(IEnumerable<T> entities, IDatabaseTransaction dbTransaction)
         {
             using (dbTransaction)
             {
@@ -196,7 +201,7 @@ namespace DotNetFive.Core.Repository.Class
                     {
                         unitOfWork.Context.SaveChanges();
 
-                        RemoveCache(entities.FirstOrDefault());
+                        RemoveCache();
                     }
 
                     return hasDeleted;
@@ -209,9 +214,9 @@ namespace DotNetFive.Core.Repository.Class
             return false;
         }
 
-        private async Task<IEnumerable<T>> GetCachedList(T entity)
+        private async Task<IEnumerable<T>> GetCachedList()
         {
-            Type entityType = entity.GetType();
+            Type entityType = this.GetType();
 
             string entityName = entityType.Name;
 
@@ -225,18 +230,18 @@ namespace DotNetFive.Core.Repository.Class
                 );
         }
 
-        private bool RemoveCache(T entity)
+        private bool RemoveCache()
         {
-            Type entityType = entity.GetType();
+            Type entityType = this.GetType();
 
             string entityName = entityType.Name;
 
             return cachingService.Remove(entityName);
         }
 
-        private async Task<IEnumerable<T>> GetByProperty(T entity, string propertyName, string propertyValue)
+        private async Task<IEnumerable<T>> GetByProperty(string propertyName, string propertyValue)
         {
-            var result = await GetCachedList(entity);
+            var result = await GetCachedList();
 
             Type type = typeof(T);
             var prop = type.GetProperty(propertyName);

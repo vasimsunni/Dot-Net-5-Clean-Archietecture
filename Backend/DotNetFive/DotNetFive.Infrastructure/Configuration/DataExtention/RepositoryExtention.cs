@@ -12,9 +12,9 @@ namespace DotNetFive.Infrastructure.Configuration.DataExtention
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IBaseRepository<Administrator>, BaseRepository<Administrator>>();
-            services.AddScoped<IBaseRepository<FileUpload>, BaseRepository<FileUpload>>();
-            services.AddScoped<IBaseRepository<Bin>, BaseRepository<Bin>>();
+            services.AddScoped<IRepository<Administrator>, Repository<Administrator>>();
+            services.AddScoped<IRepository<FileUpload>, Repository<FileUpload>>();
+            services.AddScoped<IRepository<Bin>, Repository<Bin>>();
 
             return services;
         }
